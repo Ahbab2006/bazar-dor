@@ -1,10 +1,9 @@
-// সংখ্যা বাংলায় রূপান্তর
+
 export const toBengali = (num: number | string) => {
   const bn = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
   return String(num).replace(/[0-9]/g, (d) => bn[+d]);
 };
 
-// একক বাংলায় রূপান্তর
 export const formatUnit = (unit: string) => {
   switch (unit?.toLowerCase()) {
     case 'kg':

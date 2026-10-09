@@ -19,7 +19,6 @@ export default function RootLayout({
       <body className="bg-gray-50 min-h-screen text-gray-900 antialiased">
         <Toaster position="top-right" />
         
-        {/* usePathname এর এরর দূর করতে Header কে Suspense এ রাখা হলো */}
         <Suspense fallback={<div className="h-16 bg-white border-b" />}>
           <Header />
         </Suspense>

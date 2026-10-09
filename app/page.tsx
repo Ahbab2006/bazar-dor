@@ -24,13 +24,11 @@ export default function HomePage() {
       });
   }, []);
 
-  // ১. আজ দাম বেড়েছে (Top 6 risers)
   const risers = products
     .filter((item: any) => item.change?.dir === 'up')
     .sort((a: any, b: any) => Math.abs(b.change?.pct || 0) - Math.abs(a.change?.pct || 0))
     .slice(0, 6);
 
-  // ২. আজ দাম কমেছে (Top 6 fallers)
   const fallers = products
     .filter((item: any) => item.change?.dir === 'down')
     .sort((a: any, b: any) => Math.abs(b.change?.pct || 0) - Math.abs(a.change?.pct || 0))
@@ -49,10 +47,9 @@ export default function HomePage() {
 
   return (
     <main className="max-w-7xl mx-auto px-4 pb-16 space-y-10">
-      {/* Hero / Banner Section */}
+
       <Hero />
 
-      {/* Section A: আজ দাম বেড়েছে */}
       <section className="space-y-4">
         <div className="flex items-center gap-2">
           <span className="text-rose-600 font-bold text-sm">▲</span>
@@ -65,7 +62,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section B: আজ দাম কমেছে */}
       <section className="space-y-4">
         <div className="flex items-center gap-2">
           <span className="text-emerald-600 font-bold text-sm">▼</span>
@@ -78,7 +74,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section C: সব পণ্য */}
       <section id="sob-ponno" className="scroll-mt-24 space-y-4">
         <div>
           <h2 className="text-lg md:text-xl font-bold text-gray-800">সব পণ্য</h2>

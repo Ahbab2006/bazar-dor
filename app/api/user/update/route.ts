@@ -13,8 +13,6 @@ export async function POST(req: Request) {
 
     await client.connect();
     const db = client.db('better-auth-db2');
-
-    // BetterAuth-এর user কালেকশনে নাম আপডেট করা
     const result = await db.collection('user').updateOne(
       { email: email },
       { $set: { name: name } }

@@ -23,7 +23,7 @@ export default function SignInPage() {
         fetchOptions: {
   onSuccess: () => {
     toast.success('সফলভাবে সাইন ইন হয়েছে!');
-    window.location.href = '/'; // পেজ রিফ্রেশ করে হেডার এবং কার্ডের স্টেট আপডেট করবে
+    window.location.href = '/'; 
   },
   onError: (ctx) => {
     toast.error(ctx.error.message || 'ভুল ইমেইল অথবা পাসওয়ার্ড দিয়েছেন!');
@@ -91,7 +91,6 @@ export default function SignInPage() {
           </button>
         </form>
 
-        {/* Divider */}
         <div className="relative flex items-center justify-center">
           <span className="w-full border-t border-gray-200"></span>
           <span className="bg-white px-3 text-xs text-gray-400 uppercase tracking-wider relative">
@@ -99,7 +98,6 @@ export default function SignInPage() {
           </span>
         </div>
 
-        {/* Social Login Buttons */}
         <div className="flex gap-3">
           <button
             type="button"
@@ -117,7 +115,6 @@ export default function SignInPage() {
           </button>
         </div>
 
-        {/* Register Page Link */}
         <p className="text-center text-xs text-gray-500">
           নতুন একাউন্ট খুলতে চান?{' '}
           <Link href="/signup" className="text-emerald-600 font-bold hover:underline">

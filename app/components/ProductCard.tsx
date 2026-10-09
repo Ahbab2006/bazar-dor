@@ -17,14 +17,12 @@ export default function ProductCard({ product }: { product: any }) {
   const handleCardClick = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    // ইউজার যদি সাইন ইন করা না থাকে
     if (!session?.user) {
       toast.error('পণ্যের বিস্তারিত তথ্য দেখতে অনুগ্রহ করে প্রথমে সাইন ইন করুন');
       router.push('/signin');
       return;
     }
 
-    // ইউজার সাইন ইন করা থাকলে ডিটেইলস পেজে নিয়ে যাবে
     router.push(`/product/${product.id}`);
   };
 

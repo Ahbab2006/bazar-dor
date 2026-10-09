@@ -39,19 +39,18 @@ export default function Header() {
 
   const handleSignOut = async () => {
     try {
-      // সার্ভারের ডেডিকেটেড লগআউট API কল করা
+
       await fetch('/api/auth/logout', {
         method: 'POST',
       });
 
-      // BetterAuth ক্লায়েন্ট সাইন-আউট কল করা
       await signOut();
 
       toast.success('সফলভাবে সাইন আউট হয়েছে');
     } catch (err) {
       console.error('Sign out error:', err);
     } finally {
-      // ব্রাউজারের ক্যাশ ও স্টেট পুরোপুরি রিসেট করে হোমপেজে রিফ্রেশ
+
       window.location.href = '/';
     }
   };
@@ -76,9 +75,8 @@ export default function Header() {
           </div>
         </Link>
 
-        {/* ডানদিকের Auth কন্ট্রোল */}
         <div className="flex items-center gap-2">
-          {/* লোডিং অবস্থায় বা লগইন না থাকলে */}
+  
           {!isPending && session?.user ? (
             <div className="flex items-center gap-2 sm:gap-3">
               <Link
@@ -116,7 +114,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* ক্যাটাগরি মেনু */}
       <nav className="bg-gray-50/80 border-t overflow-x-auto no-scrollbar">
         <div className="max-w-7xl mx-auto px-4 flex items-center gap-2 py-2">
           <Link

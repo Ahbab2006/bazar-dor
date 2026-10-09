@@ -48,7 +48,7 @@ export default function ProfilePage() {
         toast.error(data.error || 'নাম পরিবর্তন করা যায়নি');
       } else {
         toast.success('নাম সফলভাবে পরিবর্তন করা হয়েছে!');
-        // হেডার এবং প্রোফাইলে ডাটা রিফ্রেশ করতে উইন্ডো রিলোড
+    
         window.location.reload();
       }
     } catch (err) {

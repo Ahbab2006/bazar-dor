@@ -76,14 +76,13 @@ export default function SignUpPage() {
         </div>
 
         <Form className="flex w-full flex-col gap-4" onSubmit={onSubmit}>
-          {/* নাম ফিল্ড */}
+
           <TextField isRequired name="name">
             <Label className="text-xs font-semibold text-gray-700">নাম</Label>
             <Input name="name" placeholder="আপনার পুরো নাম" />
             <FieldError className="text-xs text-rose-500 mt-1" />
           </TextField>
 
-          {/* ইমেইল ফিল্ড */}
           <TextField
             isRequired
             name="email"
@@ -100,7 +99,6 @@ export default function SignUpPage() {
             <FieldError className="text-xs text-rose-500 mt-1" />
           </TextField>
 
-          {/* পাসওয়ার্ড ফিল্ড */}
           <TextField
             isRequired
             minLength={8}
@@ -127,7 +125,6 @@ export default function SignUpPage() {
             <FieldError className="text-xs text-rose-500 mt-1" />
           </TextField>
 
-          {/* বাটনসমূহ */}
           <div className="flex gap-2 pt-2">
             <Button
               type="submit"
@@ -142,7 +139,6 @@ export default function SignUpPage() {
           </div>
         </Form>
 
-        {/* সোশ্যাল সাইন আপ */}
         <div className="relative flex items-center justify-center">
           <span className="w-full border-t border-gray-200"></span>
           <span className="bg-white px-3 text-xs text-gray-400 uppercase tracking-wider relative">

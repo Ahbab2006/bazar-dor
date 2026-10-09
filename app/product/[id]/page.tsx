@@ -16,7 +16,6 @@ function ProductDetailContent() {
   const [product, setProduct] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
-  // ইউজার অথেন্টিকেশন গার্ড
   useEffect(() => {
     if (!isPending && !session?.user) {
       toast.error('পণ্যের বিস্তারিত তথ্য দেখতে আগে সাইন ইন করুন');
@@ -24,7 +23,7 @@ function ProductDetailContent() {
     }
   }, [session, isPending, router]);
 
-  // লগইন নিশ্চিত হলে ডাটা ফেচ করা
+
   useEffect(() => {
     if (!id || !session?.user) return;
 
@@ -58,7 +57,6 @@ function ProductDetailContent() {
     );
   }
 
-  // লগইন না থাকলে পেজে কিছুই রেন্ডার হবে না
   if (!session?.user) {
     return null;
   }

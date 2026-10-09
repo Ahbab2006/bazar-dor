@@ -36,7 +36,7 @@ export default function CategoryPage() {
           });
         }
 
-        // ২. Products API theke shob product ana ebong category/categoryNameBn match kora
+    
         const prodRes = await fetch('https://api.api-store.workers.dev/api/bazardor/products');
         const allProducts = await prodRes.json();
 
@@ -59,7 +59,6 @@ export default function CategoryPage() {
     fetchData();
   }, [slug]);
 
-  // Sorting by price
   const sortedProducts = [...products].sort((a, b) => {
     const priceA = Number(a.today || a.price || 0);
     const priceB = Number(b.today || b.price || 0);
@@ -125,7 +124,6 @@ export default function CategoryPage() {
           </div>
         </div>
 
-        {/* C1 Sort Dropdown */}
         <div className="flex items-center gap-2 self-start sm:self-auto">
           <label htmlFor="sort" className="text-sm font-medium text-gray-600">
             সাজান:
