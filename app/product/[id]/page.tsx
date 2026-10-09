@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useSession } from '@/lib/auth-client';
 import { toBengali, formatUnit } from '@/lib/utils';
 import toast from 'react-hot-toast';
+import { Product } from '@/app/types';
 
 function ProductDetailContent() {
   const params = useParams();
@@ -13,7 +14,7 @@ function ProductDetailContent() {
   const router = useRouter();
 
   const { data: session, isPending } = useSession();
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<Product| null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

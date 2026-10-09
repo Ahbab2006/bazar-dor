@@ -5,8 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useSession } from '@/lib/auth-client';
 import { toBengali, formatUnit } from '@/lib/utils';
 import toast from 'react-hot-toast';
+import { Product } from '../types';
 
-export default function ProductCard({ product }: { product: any }) {
+export default function ProductCard({ product }: { product: Product }) {
   const router = useRouter();
   const { data: session } = useSession();
 

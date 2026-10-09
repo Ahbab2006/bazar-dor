@@ -50,7 +50,7 @@ export default function Hero() {
           height={240}
           width={240}
           alt="Bazar Hero"
-          className="object-contain"
+          className="object-contain h-auto"
           priority
         />
       </div>

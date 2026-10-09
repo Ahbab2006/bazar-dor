@@ -4,9 +4,10 @@ import React, { useEffect, useState } from 'react';
 import Hero from './components/Hero';
 import ProductCard from './components/ProductCard';
 import { toBengali } from '@/lib/utils';
+import { Product } from './types';
 
 export default function HomePage() {
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -25,13 +26,13 @@ export default function HomePage() {
   }, []);
 
   const risers = products
-    .filter((item: any) => item.change?.dir === 'up')
-    .sort((a: any, b: any) => Math.abs(b.change?.pct || 0) - Math.abs(a.change?.pct || 0))
+    .filter((item: Product) => item.change?.dir === 'up')
+    .sort((a: Product, b: Product) => Math.abs(b.change?.pct || 0) - Math.abs(a.change?.pct || 0))
     .slice(0, 6);
 
   const fallers = products
-    .filter((item: any) => item.change?.dir === 'down')
-    .sort((a: any, b: any) => Math.abs(b.change?.pct || 0) - Math.abs(a.change?.pct || 0))
+    .filter((item: Product) => item.change?.dir === 'down')
+    .sort((a: Product, b: Product) => Math.abs(b.change?.pct || 0) - Math.abs(a.change?.pct || 0))
     .slice(0, 6);
 
   if (loading) {
@@ -56,7 +57,7 @@ export default function HomePage() {
           <h2 className="text-lg md:text-xl font-bold text-gray-800">আজ দাম বেড়েছে</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 md:gap-4">
-          {risers.map((item: any) => (
+          {risers.map((item: Product) => (
             <ProductCard key={item.id} product={item} />
           ))}
         </div>
@@ -68,7 +69,7 @@ export default function HomePage() {
           <h2 className="text-lg md:text-xl font-bold text-gray-800">আজ দাম কমেছে</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 md:gap-4">
-          {fallers.map((item: any) => (
+          {fallers.map((item: Product) => (
             <ProductCard key={item.id} product={item} />
           ))}
         </div>
@@ -82,7 +83,7 @@ export default function HomePage() {
           </p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-3 md:gap-4">
-          {products.map((item: any) => (
+          {products.map((item: Product) => (
             <ProductCard key={item.id} product={item} />
           ))}
         </div>

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { MongoClient } from 'mongodb';
+import { Product } from '@/app/types';
 
 const client = new MongoClient(process.env.MONGODB_URI!);
 
@@ -19,7 +20,7 @@ export async function POST(req: Request) {
     );
 
     return NextResponse.json({ success: true, result });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Update error:', error);
     return NextResponse.json({ error: 'Database update failed' }, { status: 500 });
   }

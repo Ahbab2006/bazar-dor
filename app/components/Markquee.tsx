@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import MarqueeText from 'react-marquee-text';
 import 'react-marquee-text/dist/styles.css';
+import { Product } from '../types';
 
 const toBengali = (num: number | string) => {
   const bn = ['০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯'];
@@ -27,7 +28,7 @@ const formatUnit = (unit: string) => {
 };
 
 export default function Markquee() {
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     fetch('https://api.api-store.workers.dev/api/bazardor/products')
@@ -48,7 +49,7 @@ export default function Markquee() {
     <div className="bg-emerald-50/70 border-t border-b border-emerald-100 py-1.5 text-xs text-gray-800">
       <div className="max-w-7xl mx-auto px-4 flex items-center">
         <MarqueeText direction="left" duration={25}>
-          {products.map((item: any) => {
+          {products.map((item: Product) => {
             const isUp = item.change?.dir === 'up';
             const isDown = item.change?.dir === 'down';
             const pct = Math.abs(item.change?.pct || 0);
