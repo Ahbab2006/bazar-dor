@@ -158,7 +158,7 @@ function ProductDetailContent() {
               </tr>
             </thead>
             <tbody className="divide-y text-gray-700">
-              {product.markets?.map((m: any, idx: number) => (
+              {product.markets?.map((m, idx) => (
                 <tr key={idx} className="hover:bg-gray-50/70">
                   <td className="py-3.5 font-medium text-gray-900">{m.market}</td>
                   <td className="py-3.5 text-gray-500">{m.division}</td>

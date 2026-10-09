@@ -1,170 +1,147 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { signUp, signIn } from "@/lib/auth-client";
-import {
-  Button,
-  Description,
-  FieldError,
-  Form,
-  Input,
-  Label,
-  TextField,
-} from "@heroui/react";
-import toast from "react-hot-toast";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { signUp, signIn } from '@/lib/auth-client';
+import toast from 'react-hot-toast';
 
 export default function SignUpPage() {
-  const router = useRouter();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
 
-    const formData = new FormData(e.currentTarget);
-    const name = String(formData.get("name") || "").trim();
-    const email = String(formData.get("email") || "").trim();
-    const password = String(formData.get("password") || "");
-
-    if (!name) {
-      toast.error("অনুগ্রহ করে আপনার নাম দিন");
-      setLoading(false);
+    if (!name.trim()) {
+      toast.error('আপনার নাম লিখুন');
+      return;
+    }
+    if (password.length < 8) {
+      toast.error('পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের হতে হবে');
       return;
     }
 
+    setLoading(true);
     try {
-      const { data: resdata, error } = await signUp.email({
-        name,
-        email,
-        password,
+      const { error } = await signUp.email({
+        name: name.trim(),
+        email: email.trim(),
+        password: password,
       });
 
       if (error) {
-        toast.error(error.message || "নিবন্ধন করা যায়নি, সঠিক তথ্য দিন");
+        toast.error(error.message || 'অ্যাকাউন্ট তৈরি করা যায়নি');
         setLoading(false);
-        return;
+      } else {
+        toast.success('অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!');
+        // সাইন আপের পর সরাসরি লগইন হয়ে হোমপেজে চলে যাবে
+        window.location.href = '/';
       }
-
-      toast.success("অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে! অনুগ্রহ করে সাইন ইন করুন।");
-      router.push("/signin");
-    } catch (err: any) {
-      toast.error(err?.message || "সার্ভার এরর, আবার চেষ্টা করুন");
-    } finally {
+    } catch {
+      toast.error('সার্ভারে সমস্যা হয়েছে, আবার চেষ্টা করুন');
       setLoading(false);
     }
   };
 
-  const handleSocialSignIn = async (provider: "google" | "github") => {
+  const handleSocialAuth = async (provider: 'google' | 'github') => {
     try {
       await signIn.social({
         provider,
-        callbackURL: "/",
+        callbackURL: '/',
       });
     } catch {
-      toast.error(`${provider} দিয়ে লগইন করা যায়নি`);
+      toast.error(`${provider} দিয়ে লগইন সম্পন্ন করা যায়নি`);
     }
   };
 
   return (
-    <main className="min-h-[80vh] flex items-center justify-center px-4 py-12">
+    <main className="min-h-[85vh] flex items-center justify-center px-4 py-12">
       <div className="bg-white border border-gray-100 shadow-sm rounded-3xl p-6 sm:p-8 max-w-md w-full space-y-6">
         <div className="text-center space-y-1">
-          <h1 className="text-2xl font-extrabold text-gray-900">অ্যাকাউন্ট তৈরি করুন</h1>
-          <p className="text-xs sm:text-sm text-gray-500">আপনার প্রয়োজনীয় তথ্য দিয়ে সাইন আপ করুন</p>
+          <h1 className="text-2xl font-black text-gray-900">অ্যাকাউন্ট তৈরি করুন</h1>
+          <p className="text-xs sm:text-sm text-gray-500">
+            বাজার দরের বিস্তারিত তথ্য দেখতে সাইন আপ করুন
+          </p>
         </div>
 
-        <Form className="flex w-full flex-col gap-4" onSubmit={onSubmit}>
-
-          <TextField isRequired name="name">
-            <Label className="text-xs font-semibold text-gray-700">নাম</Label>
-            <Input name="name" placeholder="আপনার পুরো নাম" />
-            <FieldError className="text-xs text-rose-500 mt-1" />
-          </TextField>
-
-          <TextField
-            isRequired
-            name="email"
-            type="email"
-            validate={(value) => {
-              if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-                return "সঠিক ইমেইল অ্যাড্রেস লিখুন";
-              }
-              return null;
-            }}
-          >
-            <Label className="text-xs font-semibold text-gray-700">ইমেইল</Label>
-            <Input name="email" placeholder="john@example.com" />
-            <FieldError className="text-xs text-rose-500 mt-1" />
-          </TextField>
-
-          <TextField
-            isRequired
-            minLength={8}
-            name="password"
-            type="password"
-            validate={(value) => {
-              if (value.length < 8) {
-                return "পাসওয়ার্ড অন্তত ৮ অক্ষরের হতে হবে";
-              }
-              if (!/[A-Z]/.test(value)) {
-                return "পাসওয়ার্ডে অন্তত একটি বড় হাতের অক্ষর (A-Z) থাকতে হবে";
-              }
-              if (!/[0-9]/.test(value)) {
-                return "পাসওয়ার্ডে অন্তত একটি সংখ্যা (0-9) থাকতে হবে";
-              }
-              return null;
-            }}
-          >
-            <Label className="text-xs font-semibold text-gray-700">পাসওয়ার্ড</Label>
-            <Input name="password" placeholder="পাসওয়ার্ড লিখুন" />
-            <Description className="text-[11px] text-gray-400 mt-1">
-              কমপক্ষে ৮ অক্ষর, একটি বড় হাতের অক্ষর ও একটি সংখ্যা থাকতে হবে
-            </Description>
-            <FieldError className="text-xs text-rose-500 mt-1" />
-          </TextField>
-
-          <div className="flex gap-2 pt-2">
-            <Button
-              type="submit"
-              isDisabled={loading}
-              className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2 rounded-xl transition"
-            >
-              {loading ? "নিবন্ধন হচ্ছে..." : "সাইন আপ"}
-            </Button>
-            <Button type="reset" variant="secondary" className="rounded-xl">
-              রিসেট
-            </Button>
+        {/* ইমেইল ও পাসওয়ার্ড ফর্ম */}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="text-xs font-semibold text-gray-700 block mb-1">আপনার নাম</label>
+            <input
+              type="text"
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="রাহিম ইসলাম"
+              className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
+            />
           </div>
-        </Form>
 
+          <div>
+            <label className="text-xs font-semibold text-gray-700 block mb-1">ইমেইল ঠিকানা</label>
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="user@example.com"
+              className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
+            />
+          </div>
+
+          <div>
+            <label className="text-xs font-semibold text-gray-700 block mb-1">পাসওয়ার্ড</label>
+            <input
+              type="password"
+              required
+              minLength={8}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="কমপক্ষে ৮ অক্ষর লিখুন"
+              className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white font-medium py-2.5 rounded-xl text-sm transition shadow-sm cursor-pointer"
+          >
+            {loading ? 'অ্যাকাউন্ট তৈরি হচ্ছে...' : 'সাইন আপ'}
+          </button>
+        </form>
+
+        {/* অথবা ডিভাইডার */}
         <div className="relative flex items-center justify-center">
-          <span className="w-full border-t border-gray-200"></span>
+          <span className="w-full border-t border-gray-200" />
           <span className="bg-white px-3 text-xs text-gray-400 uppercase tracking-wider relative">
-            অথবা
+            অথবা সোশ্যাল দিয়ে
           </span>
         </div>
 
+        {/* ফর্মের নিচে Google ও GitHub বাটন */}
         <div className="flex gap-3">
           <button
             type="button"
-            onClick={() => handleSocialSignIn("google")}
-            className="w-1/2 flex items-center justify-center gap-2 border border-gray-200 rounded-xl py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition"
+            onClick={() => handleSocialAuth('google')}
+            className="w-1/2 flex items-center justify-center gap-2 border border-gray-200 rounded-xl py-2.5 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition cursor-pointer"
           >
             <span>🌐</span> Google
           </button>
           <button
             type="button"
-            onClick={() => handleSocialSignIn("github")}
-            className="w-1/2 flex items-center justify-center gap-2 border border-gray-200 rounded-xl py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition"
+            onClick={() => handleSocialAuth('github')}
+            className="w-1/2 flex items-center justify-center gap-2 border border-gray-200 rounded-xl py-2.5 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition cursor-pointer"
           >
             <span>🐙</span> GitHub
           </button>
         </div>
 
-        <p className="text-center text-xs text-gray-500">
-          ইতিমধ্যে অ্যাকাউন্ট আছে?{" "}
+        <p className="text-center text-xs text-gray-500 pt-1">
+          ইতিমধ্যে একটি অ্যাকাউন্ট আছে?{' '}
           <Link href="/signin" className="text-emerald-600 font-bold hover:underline">
             সাইন ইন করুন
           </Link>

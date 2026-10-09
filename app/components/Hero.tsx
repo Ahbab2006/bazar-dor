@@ -45,14 +45,15 @@ export default function Hero() {
       </div>
 
       <div className="shrink-0 flex items-center justify-center">
-        <Image
-          src={HeroPic}
-          height={240}
-          width={240}
-          alt="Bazar Hero"
-          className="object-contain h-auto"
-          priority
-        />
+       <Image
+  src={HeroPic}
+  height={240}
+  width={240}
+  alt="Bazar Hero"
+  className="object-contain"
+  style={{ width: 'auto', height: 'auto' }}
+  priority
+/>
       </div>
     </section>
   );

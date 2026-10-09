@@ -3,6 +3,8 @@ import { Suspense } from 'react';
 import Header from './components/Header';
 import { Toaster } from 'react-hot-toast';
 import './globals.css';
+import Footer from './components/Footer';
+import Markquee from './components/Markquee';
 
 export const metadata: Metadata = {
   title: 'বাজার দর - নিত্যপণ্যের বাজারদর',
@@ -21,9 +23,11 @@ export default function RootLayout({
         
         <Suspense fallback={<div className="h-16 bg-white border-b" />}>
           <Header />
+          <Markquee></Markquee>
         </Suspense>
 
         <main>{children}</main>
+        <Footer></Footer>
       </body>
     </html>
   );

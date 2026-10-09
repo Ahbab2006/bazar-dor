@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 Bazar Dor (বাজার দর)
 
-## Getting Started
+A modern, responsive full-stack web application designed to track and monitor daily essential commodity prices across major markets in Bangladesh.
 
-First, run the development server:
+---
+
+## ✨ Features
+
+- **📊 Real-time Price Tracking:** View daily retail and wholesale prices for rice, lentils, oil, vegetables, fish, meat, eggs, and spices.
+- **🔒 Protected Product Details:** Detailed price breakdowns, trend shifts (rise/fall indicators), and market-wise range comparisons are exclusively available for authenticated users.
+- **🔐 Robust Authentication:**
+  - Secure Email/Password registration & login powered by **BetterAuth**.
+  - Social OAuth integration with **Google** & **GitHub**.
+  - Guaranteed server-side cookie deletion and cache busting on logout.
+- **👤 Profile Management:** Authenticated users can view their credentials and update their account name directly in MongoDB.
+- **⚡ Dynamic Localization:** Automated date display formatted in Bengali locale (`bn-BD`) and localized numeral rendering.
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend Framework** | [Next.js](https://nextjs.org/) (App Router, Turbopack) & React |
+| **UI & Styling** | [Tailwind CSS](https://tailwindcss.com/) & [HeroUI](https://heroui.com/) |
+| **Authentication** | [BetterAuth](https://better-auth.com/) with `@better-auth/mongodb-adapter` |
+| **Database** | [MongoDB](https://www.mongodb.com/) (Native MongoClient / Atlas) |
+| **Notifications** | [React Hot Toast](https://react-hot-toast.com/) |
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone & Install Dependencies
+
+```bash
+git clone https://github.com/your-username/bazar-dor.git
+cd bazar-dor
+npm install
+```
+
+### 2. Configure Environment Variables
+
+Create a `.env.local` file in the root folder with the following variables:
+
+```env
+# BetterAuth Configuration
+BETTER_AUTH_URL=http://localhost:3000
+BETTER_AUTH_SECRET=your_super_secret_key_at_least_32_characters_long
+
+# MongoDB Connection
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/bazardor?retryWrites=true&w=majority
+
+# OAuth Providers (Optional)
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
+```
+
+### 3. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Key Project Architecture
 
-## Learn More
+```text
+├── app/
+│   ├── api/
+│   │   ├── auth/
+│   │   │   ├── [...all]/route.ts       # BetterAuth API handler
+│   │   │   └── logout/route.ts         # Server-side cookie cleanup
+│   │   └── user/update/route.ts        # Direct DB profile updates
+│   ├── components/
+│   │   ├── Header.tsx                  # Global navbar with live auth session
+│   │   ├── Hero.tsx                    # Banner with dynamic Bangla date
+│   │   ├── ProductCard.tsx             # Click-protected price cards
+│   │   └── Footer.tsx                  # Disclaimer and branding footer
+│   ├── product/[id]/page.tsx           # Authenticated product details
+│   ├── profile/page.tsx                # Account settings & name updater
+│   ├── signin/page.tsx                 # Credentials & Social Sign-In
+│   ├── signup/page.tsx                 # Registration with auto-login flow
+│   └── layout.tsx                      # Root layout wrapping global styles & toast
+├── lib/
+│   ├── auth.ts                         # Server-side BetterAuth configuration
+│   ├── auth-client.ts                  # Client-side auth hooks & actions
+│   └── utils.ts                        # Bengali digits & unit formatting utilities
+└── types/                              # TypeScript interfaces and schemas
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🛡️ License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is open-source and available under the [MIT License](LICENSE).

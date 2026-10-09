@@ -5,12 +5,13 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import ProductCard from '@/app/components/ProductCard';
 import { toBengali } from '@/lib/utils';
+import { Category, Product } from '@/app/types';
 
 export default function CategoryPage() {
   const params = useParams();
   const slug = params?.slug as string;
 
-  const [products, setProducts] = useState<any[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [sortOption, setSortOption] = useState<'default' | 'asc' | 'desc'>('default');
   const [categoryInfo, setCategoryInfo] = useState<{ nameBn: string; icon: string }>({
@@ -27,7 +28,7 @@ export default function CategoryPage() {
         // ১. Categories API theke matched category-r Bangla name o icon ana
         const catRes = await fetch('https://api.api-store.workers.dev/api/bazardor/categories');
         const categories = await catRes.json();
-        const matchedCat = categories.find((c: any) => c.slug === slug || c.id === slug);
+        const matchedCat = categories.find((c: Category) => c.slug === slug || c.id === slug);
 
         if (matchedCat) {
           setCategoryInfo({
@@ -36,11 +37,11 @@ export default function CategoryPage() {
           });
         }
 
-    
+
         const prodRes = await fetch('https://api.api-store.workers.dev/api/bazardor/products');
         const allProducts = await prodRes.json();
 
-        const filtered = allProducts.filter((item: any) => {
+        const filtered = allProducts.filter((item: Product) => {
           return (
             item.category?.toLowerCase() === slug.toLowerCase() ||
             (matchedCat && item.categoryNameBn === matchedCat.nameBn)
@@ -60,11 +61,12 @@ export default function CategoryPage() {
   }, [slug]);
 
   const sortedProducts = [...products].sort((a, b) => {
-    const priceA = Number(a.today || a.price || 0);
-    const priceB = Number(b.today || b.price || 0);
+    const priceA = a.today;
+    const priceB = b.today;
 
     if (sortOption === 'asc') return priceA - priceB;
     if (sortOption === 'desc') return priceB - priceA;
+
     return 0;
   });
 
@@ -132,7 +134,13 @@ export default function CategoryPage() {
             <select
               id="sort"
               value={sortOption}
-              onChange={(e) => setSortOption(e.target.value as any)}
+              onChange={(e) => {
+                const value = e.target.value;
+
+                if (value === 'default' || value === 'asc' || value === 'desc') {
+                  setSortOption(value);
+                }
+              }}
               className="appearance-none bg-white border border-gray-300 rounded-xl px-3 py-1.5 pr-8 text-xs sm:text-sm font-medium text-gray-700 focus:outline-none focus:border-emerald-500 shadow-sm cursor-pointer"
             >
               <option value="default">ডিফল্ট</option>
