@@ -36,7 +36,7 @@ export default function SignUpPage() {
         setLoading(false);
       } else {
         toast.success('অ্যাকাউন্ট সফলভাবে তৈরি হয়েছে!');
-        // সাইন আপের পর সরাসরি লগইন হয়ে হোমপেজে চলে যাবে
+
         window.location.href = '/';
       }
     } catch {
@@ -66,7 +66,6 @@ export default function SignUpPage() {
           </p>
         </div>
 
-        {/* ইমেইল ও পাসওয়ার্ড ফর্ম */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="text-xs font-semibold text-gray-700 block mb-1">আপনার নাম</label>
@@ -114,7 +113,6 @@ export default function SignUpPage() {
           </button>
         </form>
 
-        {/* অথবা ডিভাইডার */}
         <div className="relative flex items-center justify-center">
           <span className="w-full border-t border-gray-200" />
           <span className="bg-white px-3 text-xs text-gray-400 uppercase tracking-wider relative">
@@ -122,7 +120,6 @@ export default function SignUpPage() {
           </span>
         </div>
 
-        {/* ফর্মের নিচে Google ও GitHub বাটন */}
         <div className="flex gap-3">
           <button
             type="button"

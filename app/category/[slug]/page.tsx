@@ -25,7 +25,6 @@ export default function CategoryPage() {
 
     const fetchData = async () => {
       try {
-        // ১. Categories API theke matched category-r Bangla name o icon ana
         const catRes = await fetch('https://api.api-store.workers.dev/api/bazardor/categories');
         const categories = await catRes.json();
         const matchedCat = categories.find((c: Category) => c.slug === slug || c.id === slug);
@@ -36,8 +35,6 @@ export default function CategoryPage() {
             icon: matchedCat.icon || '🛍️',
           });
         }
-
-
         const prodRes = await fetch('https://api.api-store.workers.dev/api/bazardor/products');
         const allProducts = await prodRes.json();
 
@@ -86,7 +83,7 @@ export default function CategoryPage() {
       </main>
     );
   }
-
+  
   if (products.length === 0) {
     return (
       <main className="max-w-7xl mx-auto px-4 py-20 text-center space-y-4">

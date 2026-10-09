@@ -42,7 +42,6 @@ export default function Markquee() {
       .catch((err) => console.error('Failed to load marquee data:', err));
   }, []);
 
-  // SSR হাইড্রেশন এরর এড়াতে মাউন্ট হওয়ার পর রেন্ডার
   if (!mounted || !products.length) {
     return null;
   }

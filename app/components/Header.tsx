@@ -15,7 +15,6 @@ interface Category {
   nameBn: string;
   icon: string;
 }
-
 export default function Header() {
   const pathname = usePathname();
   const { data: session, isPending } = useSession();
@@ -54,7 +53,6 @@ export default function Header() {
       window.location.href = '/';
     }
   };
-
   return (
     <header className="sticky top-0 z-50 bg-white border-b shadow-sm">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">

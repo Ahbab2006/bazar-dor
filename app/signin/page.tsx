@@ -25,7 +25,6 @@ export default function SignInPage() {
         setLoading(false);
       } else {
         toast.success('সফলভাবে সাইন ইন হয়েছে!');
-        // সেশন ফ্রেশ লোড করে সরাসরি হোমপেজে রিফ্রেশ
         window.location.href = '/';
       }
     } catch {
@@ -55,7 +54,6 @@ export default function SignInPage() {
           </p>
         </div>
 
-        {/* সাইন ইন ফর্ম */}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="text-xs font-semibold text-gray-700 block mb-1">ইমেইল ঠিকানা</label>
@@ -90,7 +88,6 @@ export default function SignInPage() {
           </button>
         </form>
 
-        {/* অথবা ডিভাইডার */}
         <div className="relative flex items-center justify-center">
           <span className="w-full border-t border-gray-200" />
           <span className="bg-white px-3 text-xs text-gray-400 uppercase tracking-wider relative">
@@ -98,7 +95,6 @@ export default function SignInPage() {
           </span>
         </div>
 
-        {/* ফর্মের নিচে Google ও GitHub বাটন */}
         <div className="flex gap-3">
           <button
             type="button"

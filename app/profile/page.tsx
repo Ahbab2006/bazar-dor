@@ -3,7 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+
 import { useSession } from '@/lib/auth-client';
+
 import toast from 'react-hot-toast';
 
 export default function ProfilePage() {
@@ -28,7 +30,6 @@ export default function ProfilePage() {
       toast.error('নাম ফাঁকা রাখা যাবে না');
       return;
     }
-
     setUpdating(true);
     try {
       const res = await fetch('/api/user/update', {
@@ -43,7 +44,6 @@ export default function ProfilePage() {
       });
 
       const data = await res.json();
-
       if (!res.ok) {
         toast.error(data.error || 'নাম পরিবর্তন করা যায়নি');
       } else {
@@ -65,7 +65,6 @@ export default function ProfilePage() {
       </main>
     );
   }
-
   if (!session) return null;
 
   return (
