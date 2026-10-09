@@ -8,6 +8,7 @@ import Logo from '@/public/logo-icon.png';
 // import { useSession, signOut } from '@/lib/auth-client';
 import toast from 'react-hot-toast';
 import { useSession } from '@/lib/auth-client';
+import { signOut } from 'better-auth/api';
 
 interface Category {
   id: string;
