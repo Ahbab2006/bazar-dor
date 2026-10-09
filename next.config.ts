@@ -5,6 +5,12 @@ const nextConfig: NextConfig = {
   experimental: {
     agentFeedback: true,
   },
+  images:{
+remotePatterns:[{
+  protocol:"https",
+  hostname:"ichef.bbci.co.uk"
+}]
+  },
   cacheComponents: true,
   partialPrefetching: true,
   reactCompiler: true,
