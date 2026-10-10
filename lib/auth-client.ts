@@ -1,14 +1,11 @@
 import { createAuthClient } from "better-auth/react";
 
 export const authClient = createAuthClient({
-  baseURL: "http://localhost:3000",
+  // baseURL না দিলে স্বয়ংক্রিয়ভাবে কারেন্ট ব্রাউজার ডোমেইন নিয়ে নেয়, যা Vercel-এ নিখুঁত কাজ করে:
+  baseURL: process.env.NEXT_PUBLIC_APP_URL || (typeof window !== "undefined" ? window.location.origin : undefined),
 });
 
-export const {
-  signIn,
-  signUp,
-  useSession,
-} = authClient;
+export const { signIn, signUp, signOut, useSession } = authClient;
 
 
 

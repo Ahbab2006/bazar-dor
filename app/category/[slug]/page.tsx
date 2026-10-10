@@ -5,8 +5,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import ProductCard from '@/app/components/ProductCard';
 import { toBengali } from '@/lib/utils';
-import { Product } from '@/app/types';
-// import { Product } from '@/types';
+import { Product } from '@/types';
 
 function CategoryContent() {
   const params = useParams();
@@ -19,14 +18,19 @@ function CategoryContent() {
     if (!slug) return;
 
     setLoading(true);
-    fetch(`https://api.api-store.workers.dev/api/bazardor/category/${slug}`)
+    // সরাসরি ক্যাটাগরি URL না ডেকে সব প্রোডাক্ট ফেচ করে ফিল্টার করা
+    fetch('https://api.api-store.workers.dev/api/bazardor/products')
       .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch category products');
+        if (!res.ok) throw new Error('Failed to load products');
         return res.json();
       })
-      .then((data) => {
+      .then((data: Product[]) => {
         if (Array.isArray(data)) {
-          setProducts(data);
+          // নির্দিষ্ট slug এর সাথে মিলিয়ে ফিল্টার
+          const filtered = data.filter(
+            (item) => item.category?.toLowerCase() === slug.toLowerCase()
+          );
+          setProducts(filtered);
         } else {
           setProducts([]);
         }

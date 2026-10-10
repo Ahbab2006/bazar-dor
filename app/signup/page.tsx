@@ -74,7 +74,7 @@ export default function SignUpPage() {
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="রাহিম ইসলাম"
+              placeholder="Your Name"
               className="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition"
             />
           </div>
