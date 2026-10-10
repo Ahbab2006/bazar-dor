@@ -1,6 +1,5 @@
 'use client';
 
-
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import HeroPic from '@/public/bazar-hero.png';
@@ -20,11 +19,9 @@ export default function Hero() {
 
   return (
     <section className="bg-white border border-gray-100 rounded-[32px] p-8 sm:p-12 my-6 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 shadow-sm">
-
       <div className="space-y-4 max-w-xl text-left">
-
         <div className="inline-block bg-[#eaf5ef] text-[#1e824c] text-xs font-semibold px-3.5 py-1.5 rounded-full">
-          {date || 'শুক্রবার, ৯ অক্টোবর, ২০২৬'}
+          {date || 'শনিবার, ১০ অক্টোবর, ২০২৬'}
         </div>
 
         <h1 className="text-3xl sm:text-[38px] font-black text-gray-900 leading-tight">
@@ -45,16 +42,18 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="shrink-0 flex items-center justify-center">
-       <Image
-  src={HeroPic}
-  height={240}
-  width={240}
-  alt="Bazar Hero"
-  className="object-contain"
-  style={{ width: 'auto', height: 'auto' }}
-  priority
-/>
+      {/* ইমেজ কন্টেইনারটি বড় করা হয়েছে (মোবাইলে ৩০০px এবং ডেস্কটপে ৩৪০px) */}
+      <div className="shrink-0 flex items-center justify-center w-full md:w-auto">
+        <div className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-[340px] md:h-[340px]">
+          <Image
+            src={HeroPic}
+            alt="Bazar Hero"
+            fill
+            className="object-contain"
+            priority
+            sizes="(max-width: 768px) 288px, 340px"
+          />
+        </div>
       </div>
     </section>
   );
