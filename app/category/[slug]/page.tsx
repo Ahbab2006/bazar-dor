@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import ProductCard from '@/app/components/ProductCard';
 import { toBengali } from '@/lib/utils';
-import { Product } from '@/types';
+import { Product } from '@/app/types'; // Athoba '../../types'
 
 function CategoryContent() {
   const params = useParams();
@@ -18,7 +18,6 @@ function CategoryContent() {
     if (!slug) return;
 
     setLoading(true);
-    // সরাসরি ক্যাটাগরি URL না ডেকে সব প্রোডাক্ট ফেচ করে ফিল্টার করা
     fetch('https://api.api-store.workers.dev/api/bazardor/products')
       .then((res) => {
         if (!res.ok) throw new Error('Failed to load products');
@@ -26,7 +25,6 @@ function CategoryContent() {
       })
       .then((data: Product[]) => {
         if (Array.isArray(data)) {
-          // নির্দিষ্ট slug এর সাথে মিলিয়ে ফিল্টার
           const filtered = data.filter(
             (item) => item.category?.toLowerCase() === slug.toLowerCase()
           );
